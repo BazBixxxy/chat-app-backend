@@ -3,13 +3,12 @@ import { connect } from "mongoose";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
+import { app, server } from "./sockets/socket.js";
 import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import { config } from "dotenv";
 config();
-
-const app = express();
 
 // middleware
 app.use(json()); // to parse the incoming requests with json payloads(from req.body)
@@ -29,7 +28,7 @@ connect(
 )
   .then(() => {
     console.log("connected to database");
-    app.listen(8000, () => {
+    server.listen(8000, () => {
       console.log("server is running on port 8000");
     });
   })
